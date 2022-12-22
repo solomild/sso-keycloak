@@ -1,0 +1,8 @@
+providers
+themes
+
+### VS Code ###
+.vscode/
+
+### Mac OS ###
+.DS_Store

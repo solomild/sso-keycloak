@@ -1,0 +1,43 @@
+version: '3.3'
+services:
+     kc1:
+        command: >
+          start-dev
+          --spi-connections-jpa-default-migration-strategy=update 
+          --spi-login-protocol-openid-connect-legacy-logout-redirect-uri=true
+          --cache-stack=tcp
+        container_name: kc1
+        restart: unless-stopped
+        volumes:
+          - ./themes:/opt/keycloak/themes
+          - ./providers:/opt/keycloak/providers
+        environment:
+          - KEYCLOAK_ADMIN=admin
+          - KEYCLOAK_ADMIN_PASSWORD=admin
+          - PROXY_ADDRESS_FORWARDING=true
+          - JAVA_OPTS_APPEND=-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog
+          #- KEYCLOAK_LOGLEVEL=DEBUG
+        image: pramoth/keycloak:20.0.1
+        ports:
+          - 9000:8080
+
+     kc2:
+        command: >
+          start-dev
+          --spi-connections-jpa-default-migration-strategy=update 
+          --spi-login-protocol-openid-connect-legacy-logout-redirect-uri=true
+          --cache-stack=tcp
+        container_name: kc2
+        restart: unless-stopped
+        volumes:
+          - ./themes:/opt/keycloak/themes
+          - ./providers:/opt/keycloak/providers
+        environment:
+          - KEYCLOAK_ADMIN=admin
+          - KEYCLOAK_ADMIN_PASSWORD=admin
+          - PROXY_ADDRESS_FORWARDING=true
+          - JAVA_OPTS_APPEND=-Dorg.apache.commons.logging.Log=org.apache.commons.logging.impl.SimpleLog
+          #- KEYCLOAK_LOGLEVEL=DEBUG
+        image: pramoth/keycloak:20.0.1
+        ports:
+          - 9001:8080
